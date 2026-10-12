@@ -54,11 +54,26 @@
         public void ShowAll()
 
         {
-            Console.WriteLine("These are your applications");
-            foreach (JobAplication application in Applications)
+            if (Applications.Count() == 0)
             {
-                application.GetSummary();
+                Console.WriteLine("There are no applications");
             }
+            else
+            {
+                Console.WriteLine("These are your applications");
+                foreach (JobAplication application in Applications)
+                {
+                    application.GetSummary();
+                }
+            }
+            
+        }
+
+        public void RemoveJob(string jobName)
+        {
+            JobAplication jobApplication = Applications.FirstOrDefault(a => a.CompanyName == jobName);
+            Applications.Remove(jobApplication);
+
         }
 
         public void ShowByStatus()
