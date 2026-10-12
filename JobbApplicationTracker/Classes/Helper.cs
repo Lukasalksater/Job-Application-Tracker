@@ -62,7 +62,7 @@ namespace JobbApplicationTracker.Classes
 
                     case "5":
                         // Implement ShowByStatus method in JobManager class
-                        Console.WriteLine("This feature is not yet implemented.");
+                        jobManager.ShowByStatus();
                         ReturntoMenu();
 
                         break;

@@ -1,4 +1,6 @@
-﻿namespace JobbApplicationTracker.Classes
+﻿using static JobbApplicationTracker.Classes.JobAplication;
+
+namespace JobbApplicationTracker.Classes
 {
     public class JobManager
     {
@@ -17,21 +19,24 @@
         {
             JobAplication jobAplication = new JobAplication();
             Console.WriteLine("What is the company name?");
+
             jobAplication.CompanyName = Console.ReadLine();
             Console.WriteLine("What is the position title?");
+
             jobAplication.Positiontitle = Console.ReadLine();
             Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
+
             jobAplication.SetStatus(Console.ReadLine());
             Console.WriteLine("When was the application date?");
+
             jobAplication.ApllicationDate = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Have they responed? Yes/No");
+
             var haveResponsed = Console.ReadLine();
             if (haveResponsed.ToLower() == "yes")
             {
                 Console.WriteLine("When was the response date?");
                 jobAplication.ResponseDate = DateTime.Parse(Console.ReadLine());
-
-
             }
             else
             {
@@ -50,7 +55,6 @@
             jobAplication.SetStatus(statusString);
 
         }
-
         public void ShowAll()
 
         {
@@ -68,7 +72,6 @@
             }
             
         }
-
         public void RemoveJob(string jobName)
         {
             JobAplication jobApplication = Applications.FirstOrDefault(a => a.CompanyName == jobName);
@@ -78,9 +81,77 @@
 
         public void ShowByStatus()
         {
+            Console.WriteLine("What status do you want to show?");
+            var jobStatus = Console.ReadLine();
+            switch (jobStatus.ToLower())
+            {
+                case "applied":
+                    var applied = Applications.Where(application => application.curentStatus == Status.Applied);
+                    if (applied.Count() == 0)
+                    {
+                        Console.WriteLine("There are no applications with this status");
+                    }
 
+                    else
+                    {
+                        foreach (JobAplication application in applied)
+                        {
+                            application.GetSummary();
+                        }
+                    }
+
+                    break;
+
+                case "interview":
+                    var interview = Applications.Where(application => application.curentStatus == Status.Interview);
+                    if (interview.Count() == 0)
+                    {
+                        Console.WriteLine("There are no applications with this status");
+                    }
+                    else
+                    {
+                        foreach (JobAplication application in interview)
+                        {
+                            application.GetSummary();
+                        }
+                    }
+                    break;
+
+                case "offer":
+                    var offer = Applications.Where(application => application.curentStatus == Status.Offer);
+                    if (offer.Count() == 0)
+                    {
+                        Console.WriteLine("There are no applications with this status");
+                    }
+                    else
+                    {
+                        foreach (JobAplication application in offer)
+                        {
+                            application.GetSummary();
+                        }
+                    }
+                    break;
+
+                case "rejected":
+                    var rejected = Applications.Where(application => application.curentStatus == Status.Rejected);
+                    if (rejected.Count() == 0)
+                    {
+                        Console.WriteLine("There are no applications with this status");
+                    }
+                    else
+                    {
+                        foreach (JobAplication application in rejected)
+                        {
+                            application.GetSummary();
+                        }
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Did not input valid status, assumes it is applied");
+                    break;
+            }
         }
-
         public void ShowByStatistics()
         {
 
