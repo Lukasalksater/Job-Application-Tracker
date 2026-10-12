@@ -72,10 +72,8 @@ namespace JobbApplicationTracker.Classes
 
                         break;
                     case "7":
-                        // Implement ShowStatistics method in JobManager class
-                        Console.WriteLine("This feature is not yet implemented.");
+                        jobManager.ShowStatistics();
                         ReturntoMenu();
-
                         break;
 
                     case "8":

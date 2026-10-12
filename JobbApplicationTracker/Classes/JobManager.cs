@@ -29,7 +29,7 @@ namespace JobbApplicationTracker.Classes
             jobAplication.SetStatus(Console.ReadLine());
             Console.WriteLine("When was the application date?");
 
-            jobAplication.ApllicationDate = DateTime.Parse(Console.ReadLine());
+            jobAplication.AppllicationDate = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Have they responed? Yes/No");
 
             var haveResponsed = Console.ReadLine();
@@ -46,7 +46,6 @@ namespace JobbApplicationTracker.Classes
             jobAplication.SalaryExpectation =  int.Parse(Console.ReadLine());
             Applications.Add(jobAplication);
         }
-
         public void UpdateStatus(string companyName)
         {
             JobAplication jobAplication = Applications.FirstOrDefault(a => a.CompanyName == companyName);
@@ -69,7 +68,6 @@ namespace JobbApplicationTracker.Classes
                     application.GetSummary();
                 }
             }
-            
         }
         public void RemoveJob(string jobName)
         {
@@ -80,7 +78,7 @@ namespace JobbApplicationTracker.Classes
 
         public void SortByApplicationDate()
         {
-            var sortedApplications = Applications.OrderBy(application => application.ApllicationDate);
+            var sortedApplications = Applications.OrderBy(application => application.AppllicationDate);
             if (sortedApplications.Count() == 0)
             {
                 Console.WriteLine("There are no applications");
@@ -167,9 +165,28 @@ namespace JobbApplicationTracker.Classes
                     break;
             }
         }
-        public void ShowByStatistics()
+        public void ShowStatistics()
         {
+            int amountOfApplications = Applications.Count();
+            int amountOfAppliedStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Applied).Count();
+            int amountOfInterviewStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Interview).Count();
+            int amountOfOrderStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Offer).Count();
+            int amountOfRejectedStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Rejected).Count();
+            Console.WriteLine($"There are {amountOfApplications} applications");
+            Console.WriteLine($"There are {amountOfAppliedStatusApplications} applications with applied status");
+            Console.WriteLine($"There are {amountOfInterviewStatusApplications} applications with interview status");
+            Console.WriteLine($"There are {amountOfOrderStatusApplications} applications with order status");
+            Console.WriteLine($"There are {amountOfRejectedStatusApplications} applications with rejected status");
+            try
+            {
+                var averageResponseTime = Applications.Where(application => application.ResponseDate != null).Average(application => application.ResponseTime());
+                Console.WriteLine($"The average response time is {averageResponseTime}");
 
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("You have not recieved any responses");
+            }
         }
     }
 }

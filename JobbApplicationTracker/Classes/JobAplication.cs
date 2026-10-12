@@ -16,7 +16,7 @@
         public enum Status {Applied,  Interview,  Offer,  Rejected};
 
         public Status curentStatus { get; set; }
-        public DateTime ApllicationDate { get; set; }
+        public DateTime AppllicationDate { get; set; }
 
         public DateTime? ResponseDate { get; set; }
 
@@ -26,7 +26,6 @@
 //        Metoder:
 //GetDaysSinceApplied() – returnerar antal dagar sedan ansökan skickades.
 //GetSummary() – returnerar en kort sammanfattning av ansökan.
-
         public void SetStatus(string statusString)
         {
            switch (statusString.ToLower()) 
@@ -55,8 +54,13 @@
         }
         public int GetDaysSinceApplied()
         {
-            int daysSinceApplied = (DateTime.Now - ApllicationDate).Days;
+            int daysSinceApplied = (DateTime.Now - AppllicationDate).Days;
             return daysSinceApplied;
+        }
+        public int ResponseTime()
+        {
+            int  responseTimeInDays = (ResponseDate - AppllicationDate)?.Days ?? 0;
+            return responseTimeInDays;
         }
 
         public void GetSummary()
@@ -64,7 +68,7 @@
             Console.WriteLine($"This application was for {CompanyName}");
             Console.WriteLine($"for the title of {Positiontitle},");
             Console.WriteLine($"the current status is: {GetStatus()},");
-            Console.WriteLine($"the application was sent: {ApllicationDate},");
+            Console.WriteLine($"the application was sent: {AppllicationDate},");
             Console.WriteLine($"days since applied: {GetDaysSinceApplied()}");
             if (ResponseDate == null)
             {
@@ -76,8 +80,6 @@
                 Console.WriteLine($"the application got a response : {ResponseDate},");
             }
             Console.WriteLine($"the salary expectation was: {SalaryExpectation}.");
-
         }
-
     }
 }
