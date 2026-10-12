@@ -1,9 +1,9 @@
 # Jobb-Application-Tracker
 ## Project Description
-Detta är en applikation för att lägga till jobb applikationer, uppdatera och ta bort. Du kan också sortera applikationer av datum, samt visa statistik för dina ansökningar. Dock är det ej kopplat till databas så inget spras än så länge
+Detta är en applikation för att lägga till jobb applikationer, uppdatera och ta bort. Du kan också sortera applikationer av datum, samt visa statistik för dina ansökningar. Dock är det ej kopplat till databas så inget sparas än så länge
 
 ## How to run program
-För att köra programmet behövs det bara att ladda ner project, och köra .exe filen. Sedan är det bara att skriva saker i en konsol, vilka ord som ska skrivas står i konsolen.
+För att köra programmet behövs det bara att clonea ner projektet, och köra .exe filen eller öppna i vs eller vs code. Sedan är det bara att skriva saker i en konsol, vilka ord som ska skrivas står i konsolen.
 
 ## Reflection
 
