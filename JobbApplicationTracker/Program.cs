@@ -1,6 +1,6 @@
-﻿using JobbApplicationTracker.Classes;
+﻿using JobApplicationTracker.Classes;
 
-namespace JobbApplicationTracker
+namespace JobApplicationTracker
 {
     internal class Program
     {
@@ -17,7 +17,7 @@ namespace JobbApplicationTracker
             //Projektet ska hanteras via Git & GitHub enligt kravspecifikationen nedan.
 
             JobManager jobManager = new JobManager();
-            Console.WriteLine("Welcome to the jobb application tracker");
+            Console.WriteLine("Welcome to the job application tracker");
             Helper.ChooseAlternative(jobManager);
         }
     }

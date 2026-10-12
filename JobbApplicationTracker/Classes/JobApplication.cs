@@ -1,4 +1,4 @@
-﻿namespace JobbApplicationTracker.Classes
+﻿namespace JobApplicationTracker.Classes
 {
     public class JobApplication
     {

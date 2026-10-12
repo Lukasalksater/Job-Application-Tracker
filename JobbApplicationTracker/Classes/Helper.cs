@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JobbApplicationTracker.Classes
+namespace JobApplicationTracker.Classes
 {
     public static class Helper // this class was made to have less code in program.cs
     {
