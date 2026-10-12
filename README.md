@@ -1,17 +1,17 @@
 # Jobb-Application-Tracker
 ## Project Description
-Detta är en applikation för att lägga till jobb applikationer, uppdatera och ta bort. Du kan också sortera applikationer av datum, samt visa statistik för dina ansökningar. Dock är det ej kopplat till databas så inget sparas än så länge
+This is an application for adding, updating, and deleting job applications. You can also sort applications by date, as well as view statistics for your applications. However, it is not connected to a database, so nothing is saved for now.
 
 ## How to run program
-För att köra programmet behövs det bara att clonea ner projektet, och köra .exe filen eller öppna i vs eller vs code. Sedan är det bara att skriva saker i en konsol, vilka ord som ska skrivas står i konsolen.
+To run the program you only need to clone the project and run the .exe file or open it in VS or VS Code. After that you just type things into a console, and the words to type are shown in the console.
 
 ## Reflection
 
-### 1. Hur hjälpte LINQ dig att skriva renare kod?
-LINQ hjälpte mig genom att jag slapp skriva massa for loopar och if statements utan med hjälp av FindAll, Where Count med mera så behövdes det bara en rad kod istället för flera stycken rader kod.
+### 1. How did LINQ help you write cleaner code?
+LINQ helped me because I didn't have to write a lot of for loops and if statements. With the help of FindAll, Where, Count and so on, it only took one line of code instead of several lines of code.
 
-### 2. Vilken del av projektet var mest utmanande, och hur löste du den?
-Det svåraste för mig var att skriva bra kommentarer och att använda LINQ, men efter några gånger använding började det sitta fast. Det andra svåra för mig var att namnge saker bra och att komma på sätt att göra konsolen snyggare och tydligare
+### 2. Which part of the project was the most challenging, and how did you solve it?
+The hardest part for me was writing good comments and using LINQ, but after using it a few times it started to stick. The other hard part for me was naming things well and coming up with ways to make the console look nicer and clearer.
 
 
 Lukas Alksäter 10/12 2026
