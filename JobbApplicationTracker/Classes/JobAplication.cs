@@ -66,16 +66,44 @@
         {
             Console.WriteLine($"This application was for {CompanyName}");
             Console.WriteLine($"for the title of {Positiontitle},");
-            Console.WriteLine($"the current status is: {GetStatus()},");
+            if (GetStatus() is Status.Rejected)
+            {
+                Console.Write($"the current status is: ");
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.Write($"{GetStatus()}");
+                Console.ResetColor();
+                Console.WriteLine(",");
+
+            }
+            else if (GetStatus() is Status.Offer)
+            {
+                Console.Write($"the current status is: ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{GetStatus()}");
+                Console.ResetColor();
+                Console.WriteLine(",");
+            }
+            else
+            {
+                Console.Write($"the current status is: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{GetStatus()}");
+                Console.ResetColor();
+                Console.WriteLine(",");
+            }
             Console.WriteLine($"the application was sent: {AppllicationDate},");
             Console.WriteLine($"days since applied: {GetDaysSinceApplied()}");
             if (ResponseDate == null)
             {
-                Console.WriteLine($"no response yet!,");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"no response,");
+                Console.ResetColor();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"the application got a response : {ResponseDate},");
+                Console.ResetColor();
             }
             Console.WriteLine($"the salary expectation was: {SalaryExpectation}.");
         }

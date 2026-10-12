@@ -1,4 +1,5 @@
 ﻿using static JobbApplicationTracker.Classes.JobAplication;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace JobbApplicationTracker.Classes
 {
@@ -49,18 +50,44 @@ namespace JobbApplicationTracker.Classes
         public void UpdateStatus()
         {
             string companyName = Console.ReadLine();
+            Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
+            string statusString = Console.ReadLine();
+            var jobApplication = Applications.FindAll(a => a.CompanyName == companyName);
+
             if (Applications.Count() == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+
                 Console.WriteLine("There are no applications with this name to update");
+                Console.ResetColor();
+            }
+
+            else if (jobApplication.Count() > 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Type yes if this is the job you want to update status");
+                Console.ResetColor();
+                foreach (var application in jobApplication)
+                {
+                    application.GetSummary();
+                    string answer = Console.ReadLine();
+                    if (answer.ToLower() == "yes")
+                    {
+                        application.SetStatus(statusString);
+                        return;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                Console.WriteLine("No job chosen");
+                return;
             }
             else
             {
-                JobAplication jobAplication = Applications.FirstOrDefault(a => a.CompanyName == companyName);
-                Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
-                string statusString = Console.ReadLine();
-                jobAplication.SetStatus(statusString);
+                jobApplication.First().SetStatus(statusString);
             }
-
         }
         public void ShowAll()
 
@@ -81,14 +108,38 @@ namespace JobbApplicationTracker.Classes
         public void RemoveJob()
         {
             string jobName = Console.ReadLine();
-            JobAplication jobApplication = Applications.FirstOrDefault(a => a.CompanyName == jobName);
-            if (jobApplication == null)
+            var jobApplication = Applications.FindAll(a => a.CompanyName == jobName);
+            if (jobApplication.Count() == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are no application with this name");
+                Console.ResetColor();
+
+            }
+            else if (jobApplication.Count() > 1)
+            {
+                Console.WriteLine("Type yes if this is the job you want to remove");
+                foreach (var application in jobApplication)
+                {
+                    application.GetSummary();
+                    string answer = Console.ReadLine();
+                    if (answer.ToLower() == "yes")
+                    {
+                        Applications.Remove(application);
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    
+                }
+                Console.WriteLine("No job chosen");
+                return;
             }
             else
             {
-                Applications.Remove(jobApplication);
+                Applications.Remove(jobApplication.First());
             }
         }
 
@@ -97,7 +148,9 @@ namespace JobbApplicationTracker.Classes
             var sortedApplications = Applications.OrderBy(application => application.AppllicationDate);
             if (sortedApplications.Count() == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are no applications");
+                Console.ResetColor();
             }
             else
             {
@@ -118,7 +171,10 @@ namespace JobbApplicationTracker.Classes
                     var applied = Applications.Where(application => application.curentStatus == Status.Applied);
                     if (applied.Count() == 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+
                         Console.WriteLine("There are no applications with this status");
+                        Console.ResetColor();
                     }
 
                     else
@@ -135,7 +191,10 @@ namespace JobbApplicationTracker.Classes
                     var interview = Applications.Where(application => application.curentStatus == Status.Interview);
                     if (interview.Count() == 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+
                         Console.WriteLine("There are no applications with this status");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -150,7 +209,10 @@ namespace JobbApplicationTracker.Classes
                     var offer = Applications.Where(application => application.curentStatus == Status.Offer);
                     if (offer.Count() == 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+
                         Console.WriteLine("There are no applications with this status");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -165,7 +227,10 @@ namespace JobbApplicationTracker.Classes
                     var rejected = Applications.Where(application => application.curentStatus == Status.Rejected);
                     if (rejected.Count() == 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+
                         Console.WriteLine("There are no applications with this status");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -177,7 +242,11 @@ namespace JobbApplicationTracker.Classes
                     break;
 
                 default:
+
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("Did not input valid status");
+                    Console.ResetColor();
+
                     break;
             }
         }
@@ -201,7 +270,10 @@ namespace JobbApplicationTracker.Classes
             }
             catch (InvalidOperationException)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+
                 Console.WriteLine("You have not recieved any responses");
+                Console.ResetColor();
             }
         }
     }
