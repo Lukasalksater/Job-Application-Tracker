@@ -1,4 +1,4 @@
-# Jobb-Application-Tracker
+# Job-Application-Tracker
 ## Project Description
 This is an application for adding, updating, and deleting job applications. You can also sort applications by date, as well as view statistics for your applications. However, it is not connected to a database, so nothing is saved for now.
 
