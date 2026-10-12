@@ -4,11 +4,11 @@ using System.Text;
 
 namespace JobbApplicationTracker.Classes
 {
-    public static class Helper
+    public static class Helper // this class was made to have less code in program.cs
     {
         // Method
 
-        public static void DisplayMenu()
+        public static void DisplayMenu() // prints the menu
         {
             Console.WriteLine("What do you want to do?");
             Console.WriteLine("1. Add a new job application");
@@ -21,13 +21,14 @@ namespace JobbApplicationTracker.Classes
             Console.WriteLine("8. Exit");
         }
 
-        public static void ReturntoMenu()
+        public static void ReturntoMenu() // prints a message and takes an input to return to menu and clears the console
         {
             Console.WriteLine("Press enter to return to the menu.");
             Console.ReadLine();
+            Console.Clear();
         }
 
-        public static void ChooseAlternative(JobManager jobManager)
+        public static void ChooseAlternative(JobManager jobManager) // this method handles the users input and is the application, in this method to not clutter program.cs
         {
             bool isRunning = true;
             while (isRunning)
@@ -83,7 +84,6 @@ namespace JobbApplicationTracker.Classes
                         ReturntoMenu();
                         break;
                 }
-                Console.Clear();
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace JobbApplicationTracker.Classes
 {
-    public class JobAplication
+    public class JobApplication
     {
         //        Attributer :
         //CompanyName | string
@@ -11,7 +11,7 @@
         //SalaryExpectation | int - Önskad lön i kronor
 
         public string CompanyName { get; set; }
-        public string Positiontitle { get; set; }
+        public string PositionTitle { get; set; }
 
         public enum Status {Applied,  Interview,  Offer,  Rejected};
 
@@ -25,50 +25,56 @@
 //        Metoder:
 //GetDaysSinceApplied() – returnerar antal dagar sedan ansökan skickades.
 //GetSummary() – returnerar en kort sammanfattning av ansökan.
-        public void SetStatus(string statusString)
+        public void SetStatus(string statusString) // This method sets the status by taking in user input, and if user doesn't input valid status it defaults to applied.
         {
            switch (statusString.ToLower()) 
             {
                 case "applied":
                     curentStatus = Status.Applied;
                     break;
+
                 case "interview":
                     curentStatus = Status.Interview;
                     break;
+
                 case "offer":
                     curentStatus = Status.Offer;
                     break;
+
                 case "rejected":
                     curentStatus = Status.Rejected;
                     break;
+
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Did not input valid status, assumes it is applied");
+                    Console.ResetColor();
                     curentStatus = Status.Applied;
                     break;
             }
         }
-        public Enum GetStatus()
+        public Enum GetStatus() // classic getter
         {
             return curentStatus;
         }
-        public int GetDaysSinceApplied()
+        public int GetDaysSinceApplied() // Calculates days since applied and returns the value
         {
             int daysSinceApplied = (DateTime.Now - AppllicationDate).Days;
             return daysSinceApplied;
         }
-        public int ResponseTime()
+        public int ResponseTime() // Calculates response time and returns the value
         {
             int  responseTimeInDays = (ResponseDate - AppllicationDate)?.Days ?? 0;
             return responseTimeInDays;
         }
 
-        public void GetSummary()
+        public void GetSummary() // this one prints all the attributes, and changes color of Status depedning on its value
         {
             Console.WriteLine($"This application was for {CompanyName}");
-            Console.WriteLine($"for the title of {Positiontitle},");
+            Console.WriteLine($"for the title of {PositionTitle},");
             if (GetStatus() is Status.Rejected)
             {
-                Console.Write($"the current status is: ");
+                Console.Write("the current status is: ");
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.Write($"{GetStatus()}");
                 Console.ResetColor();
@@ -77,7 +83,7 @@
             }
             else if (GetStatus() is Status.Offer)
             {
-                Console.Write($"the current status is: ");
+                Console.Write("the current status is: ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"{GetStatus()}");
                 Console.ResetColor();
@@ -85,7 +91,7 @@
             }
             else
             {
-                Console.Write($"the current status is: ");
+                Console.Write("the current status is: ");
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write($"{GetStatus()}");
                 Console.ResetColor();
@@ -96,7 +102,7 @@
             if (ResponseDate == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"no response,");
+                Console.WriteLine("no response,");
                 Console.ResetColor();
             }
             else
