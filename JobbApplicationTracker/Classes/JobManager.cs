@@ -1,4 +1,4 @@
-﻿using static JobbApplicationTracker.Classes.JobAplication;
+﻿using static JobbApplicationTracker.Classes.JobApplication;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace JobbApplicationTracker.Classes
@@ -8,7 +8,7 @@ namespace JobbApplicationTracker.Classes
         //        Attributer :
         //Applications | List<JobApplication> - Samling av alla ansökningar
 
-        public List<JobAplication> Applications = new List<JobAplication>();
+        public List<JobApplication> Applications = new List<JobApplication>();
 
 //        Metoder:
 //AddJob() – lägger till en ny ansökan
@@ -16,15 +16,15 @@ namespace JobbApplicationTracker.Classes
 //ShowAll() – visar alla ansökningar
 //ShowByStatus() – filtrerar med LINQ efter status(VG del)
 //ShowStatistics() – visar statistik med LINQ(Count, Average, OrderBy, Where)
-        public void Addjob()
+        public void Addjob() // This method creates a jobApplication object and then sets every variable it needs.
         {
-            JobAplication jobAplication = new JobAplication();
+            JobApplication jobAplication = new JobApplication();
             Console.WriteLine("What is the company name?");
 
             jobAplication.CompanyName = Console.ReadLine();
             Console.WriteLine("What is the position title?");
 
-            jobAplication.Positiontitle = Console.ReadLine();
+            jobAplication.PositionTitle = Console.ReadLine();
             Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
 
             jobAplication.SetStatus(Console.ReadLine());
@@ -34,6 +34,7 @@ namespace JobbApplicationTracker.Classes
             Console.WriteLine("Have they responed? Yes/No");
 
             var haveResponsed = Console.ReadLine();
+            // Here is an if statement to print different stuff if there was no response date
             if (haveResponsed.ToLower() == "yes")
             {
                 Console.WriteLine("When was the response date?");
@@ -47,14 +48,14 @@ namespace JobbApplicationTracker.Classes
             jobAplication.SalaryExpectation =  int.Parse(Console.ReadLine());
             Applications.Add(jobAplication);
         }
-        public void UpdateStatus()
+        public void UpdateStatus() // This method update status by first searching for company name, and then depending on how many applications has that name, it does different things.
         {
             string companyName = Console.ReadLine();
             Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
             var jobApplication = Applications.FindAll(a => a.CompanyName == companyName);
 
-            if (Applications.Count() == 0)
+            if (Applications.Count() == 0) // if there is no application with inputted name write a message
             {
                 Console.ForegroundColor = ConsoleColor.Red;
 
@@ -62,7 +63,7 @@ namespace JobbApplicationTracker.Classes
                 Console.ResetColor();
             }
 
-            else if (jobApplication.Count() > 1)
+            else if (jobApplication.Count() > 1) // if there is more than 1 application with inputted name, theres a for loop asking user if this job they want to remove.
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Type yes if this is the job you want to update status");
@@ -84,75 +85,82 @@ namespace JobbApplicationTracker.Classes
                 Console.WriteLine("No job chosen");
                 return;
             }
-            else
+            else // if there is only 1 job with that name it removes it
             {
                 jobApplication.First().SetStatus(statusString);
             }
         }
-        public void ShowAll()
+        public void ShowAll() // This prints every jobAppliation GetSummary that has been added, or prints a message if there is none application
 
         {
             if (Applications.Count() == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are no applications");
+                Console.ResetColor();
+
             }
             else
             {
                 Console.WriteLine("These are your applications");
-                foreach (JobAplication application in Applications)
+                foreach (JobApplication application in Applications)
                 {
                     application.GetSummary();
                 }
             }
         }
-        public void RemoveJob()
+        public void RemoveJob() // This remove jobs and works alot like update status, but instead of updating status it removes a job instead
         {
             string jobName = Console.ReadLine();
             var jobApplication = Applications.FindAll(a => a.CompanyName == jobName);
-            if (jobApplication.Count() == 0)
+
+            if (jobApplication.Count() == 0) // checks if the list has anything in it and writes a message
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are no application with this name");
                 Console.ResetColor();
 
             }
-            else if (jobApplication.Count() > 1)
+            else if (jobApplication.Count() > 1) // checks if there is more than 1 application in list
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Type yes if this is the job you want to remove");
-                foreach (var application in jobApplication)
+                Console.ResetColor();
+                foreach (var application in jobApplication) // asks the user if this is correct job for every application in the list
                 {
                     application.GetSummary();
                     string answer = Console.ReadLine();
-                    if (answer.ToLower() == "yes")
+                    if (answer.ToLower() == "yes") // if answer is yes it removes the job and breaks the for loop
                     {
                         Applications.Remove(application);
                         break;
                     }
-                    else
+                    else // if anything else is pressed it continues the loop
                     {
                         continue;
                     }
                     
                 }
+                // these 2 lines are for if no job in whole list is chosen, so it returns to menu and prints a messsage
                 Console.WriteLine("No job chosen");
                 return;
             }
-            else
+            else // removes the job
             {
                 Applications.Remove(jobApplication.First());
             }
         }
 
-        public void SortByApplicationDate()
+        public void SortByApplicationDate() // this method sorts the applications by their application date by using OrderBy
         {
             var sortedApplications = Applications.OrderBy(application => application.AppllicationDate);
-            if (sortedApplications.Count() == 0)
+            if (sortedApplications.Count() == 0) // checks if list contains anything and returns a message if it does not
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("There are no applications");
                 Console.ResetColor();
             }
-            else
+            else // prints each application in the new sorted order
             {
                 Console.WriteLine("These are your applications sorted by application date");
                 foreach (var application in sortedApplications)
@@ -161,10 +169,11 @@ namespace JobbApplicationTracker.Classes
                 }
             }
         }
-        public void ShowByStatus()
+        public void ShowByStatus() // shows all applications by the users inputted status
         {
             Console.WriteLine("What status do you want to show?");
             var jobStatus = Console.ReadLine();
+            // uses a switch case as there is 4 alternatives, looks very similar to the switch case in AddJob. The default option does not change the status
             switch (jobStatus.ToLower())
             {
                 case "applied":
@@ -179,7 +188,7 @@ namespace JobbApplicationTracker.Classes
 
                     else
                     {
-                        foreach (JobAplication application in applied)
+                        foreach (JobApplication application in applied)
                         {
                             application.GetSummary();
                         }
@@ -198,7 +207,7 @@ namespace JobbApplicationTracker.Classes
                     }
                     else
                     {
-                        foreach (JobAplication application in interview)
+                        foreach (JobApplication application in interview)
                         {
                             application.GetSummary();
                         }
@@ -216,7 +225,7 @@ namespace JobbApplicationTracker.Classes
                     }
                     else
                     {
-                        foreach (JobAplication application in offer)
+                        foreach (JobApplication application in offer)
                         {
                             application.GetSummary();
                         }
@@ -234,7 +243,7 @@ namespace JobbApplicationTracker.Classes
                     }
                     else
                     {
-                        foreach (JobAplication application in rejected)
+                        foreach (JobApplication application in rejected)
                         {
                             application.GetSummary();
                         }
@@ -250,25 +259,30 @@ namespace JobbApplicationTracker.Classes
                     break;
             }
         }
-        public void ShowStatistics()
+        public void ShowStatistics() // this method shows 3 different statictics, total applications, applications by status and average response time
         {
+            // checks how many of each application, and for different statuses uses Where to locate and then .count to get the lenght of new list
             int amountOfApplications = Applications.Count();
             int amountOfAppliedStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Applied).Count();
             int amountOfInterviewStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Interview).Count();
             int amountOfOrderStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Offer).Count();
             int amountOfRejectedStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Rejected).Count();
+
+
+            // prints the results
             Console.WriteLine($"There are {amountOfApplications} applications");
             Console.WriteLine($"There are {amountOfAppliedStatusApplications} applications with applied status");
             Console.WriteLine($"There are {amountOfInterviewStatusApplications} applications with interview status");
             Console.WriteLine($"There are {amountOfOrderStatusApplications} applications with order status");
             Console.WriteLine($"There are {amountOfRejectedStatusApplications} applications with rejected status");
-            try
+            // Here is a try catch block to catch an error if there are no applications with a response date
+            try // runs the code below and if there is no error runs normally
             {
                 var averageResponseTime = Applications.Where(application => application.ResponseDate != null).Average(application => application.ResponseTime());
                 Console.WriteLine($"The average response time is {averageResponseTime}");
 
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException) // if it catches the InvalidOperationException it will print a message instead
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
 
