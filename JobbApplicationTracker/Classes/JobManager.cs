@@ -1,7 +1,7 @@
-﻿using static JobbApplicationTracker.Classes.JobApplication;
+﻿using static JobApplicationTracker.Classes.JobApplication;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace JobbApplicationTracker.Classes
+namespace JobApplicationTracker.Classes
 {
     public class JobManager
     {
