@@ -53,7 +53,6 @@ namespace JobbApplicationTracker.Classes
             Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
             jobAplication.SetStatus(statusString);
-
         }
         public void ShowAll()
 
@@ -79,6 +78,22 @@ namespace JobbApplicationTracker.Classes
 
         }
 
+        public void SortByApplicationDate()
+        {
+            var sortedApplications = Applications.OrderBy(application => application.ApllicationDate);
+            if (sortedApplications.Count() == 0)
+            {
+                Console.WriteLine("There are no applications");
+            }
+            else
+            {
+                Console.WriteLine("These are your applications sorted by application date");
+                foreach (var application in sortedApplications)
+                {
+                    application.GetSummary();
+                }
+            }
+        }
         public void ShowByStatus()
         {
             Console.WriteLine("What status do you want to show?");
@@ -156,6 +171,5 @@ namespace JobbApplicationTracker.Classes
         {
 
         }
-
     }
 }

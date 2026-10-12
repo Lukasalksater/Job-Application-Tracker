@@ -16,9 +16,10 @@ namespace JobbApplicationTracker.Classes
             Console.WriteLine("2. Remove a job application");
             Console.WriteLine("3. Update the status of an existing application");
             Console.WriteLine("4. Show all applications");
-            Console.WriteLine("5. Show applications by status");
-            Console.WriteLine("6. Show statistics");
-            Console.WriteLine("7. Exit");
+            Console.WriteLine("5, Order applications by date and show them");
+            Console.WriteLine("6. Show applications by status");
+            Console.WriteLine("7. Show statistics");
+            Console.WriteLine("8. Exit");
         }
 
         public static void ReturntoMenu()
@@ -33,8 +34,8 @@ namespace JobbApplicationTracker.Classes
             while (isRunning)
             {
                 DisplayMenu();
-
                 string choice = Console.ReadLine();
+
                 switch (choice)
                 {
                     case "1":
@@ -61,20 +62,23 @@ namespace JobbApplicationTracker.Classes
                         break;
 
                     case "5":
-                        // Implement ShowByStatus method in JobManager class
+                        jobManager.SortByApplicationDate();
+                        ReturntoMenu();
+                        break;
+
+                    case "6":
                         jobManager.ShowByStatus();
                         ReturntoMenu();
 
                         break;
-                    case "6":
-
+                    case "7":
                         // Implement ShowStatistics method in JobManager class
                         Console.WriteLine("This feature is not yet implemented.");
                         ReturntoMenu();
 
                         break;
 
-                    case "7":
+                    case "8":
                         isRunning = false;
                         break;
                    
