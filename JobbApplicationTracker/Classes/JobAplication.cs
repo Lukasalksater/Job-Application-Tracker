@@ -22,7 +22,6 @@
 
         public int SalaryExpectation { get; set; }
 
-
 //        Metoder:
 //GetDaysSinceApplied() – returnerar antal dagar sedan ansökan skickades.
 //GetSummary() – returnerar en kort sammanfattning av ansökan.
@@ -73,7 +72,6 @@
             if (ResponseDate == null)
             {
                 Console.WriteLine($"no response yet!,");
-
             }
             else
             {

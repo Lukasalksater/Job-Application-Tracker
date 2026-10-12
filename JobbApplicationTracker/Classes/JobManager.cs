@@ -46,12 +46,21 @@ namespace JobbApplicationTracker.Classes
             jobAplication.SalaryExpectation =  int.Parse(Console.ReadLine());
             Applications.Add(jobAplication);
         }
-        public void UpdateStatus(string companyName)
+        public void UpdateStatus()
         {
-            JobAplication jobAplication = Applications.FirstOrDefault(a => a.CompanyName == companyName);
-            Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
-            string statusString = Console.ReadLine();
-            jobAplication.SetStatus(statusString);
+            string companyName = Console.ReadLine();
+            if (Applications.Count() == 0)
+            {
+                Console.WriteLine("There are no applications with this name to update");
+            }
+            else
+            {
+                JobAplication jobAplication = Applications.FirstOrDefault(a => a.CompanyName == companyName);
+                Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
+                string statusString = Console.ReadLine();
+                jobAplication.SetStatus(statusString);
+            }
+
         }
         public void ShowAll()
 
@@ -69,11 +78,18 @@ namespace JobbApplicationTracker.Classes
                 }
             }
         }
-        public void RemoveJob(string jobName)
+        public void RemoveJob()
         {
+            string jobName = Console.ReadLine();
             JobAplication jobApplication = Applications.FirstOrDefault(a => a.CompanyName == jobName);
-            Applications.Remove(jobApplication);
-
+            if (jobApplication == null)
+            {
+                Console.WriteLine("There are no application with this name");
+            }
+            else
+            {
+                Applications.Remove(jobApplication);
+            }
         }
 
         public void SortByApplicationDate()
@@ -161,7 +177,7 @@ namespace JobbApplicationTracker.Classes
                     break;
 
                 default:
-                    Console.WriteLine("Did not input valid status, assumes it is applied");
+                    Console.WriteLine("Did not input valid status");
                     break;
             }
         }

@@ -6,7 +6,6 @@ namespace JobbApplicationTracker.Classes
 {
     public static class Helper
     {
-
         // Method
 
         public static void DisplayMenu()
@@ -45,14 +44,13 @@ namespace JobbApplicationTracker.Classes
 
                     case "2":
                         Console.WriteLine("Enter the company name to remove the application");
-                        string jobName = Console.ReadLine();
-                        jobManager.RemoveJob(jobName);
+                        jobManager.RemoveJob();
                         ReturntoMenu();
                         break;
 
                     case "3":
                         Console.WriteLine("Enter the company name to update the status of the application:");
-                        jobManager.UpdateStatus(Console.ReadLine());
+                        jobManager.UpdateStatus();
                         ReturntoMenu();
                         break;
 
@@ -87,7 +85,6 @@ namespace JobbApplicationTracker.Classes
                 }
                 Console.Clear();
             }
-
         }
     }
 }
