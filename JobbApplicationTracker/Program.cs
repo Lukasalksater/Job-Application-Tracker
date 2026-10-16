@@ -15,10 +15,7 @@ namespace JobApplicationTracker
             //Implementera minst tre LINQ-operationer för att filtrera, sortera eller beräkna data.
             //Koden ska vara välstrukturerad, kommenterad, och enhetligt namngiven.
             //Projektet ska hanteras via Git & GitHub enligt kravspecifikationen nedan.
-
-            JobManager jobManager = new JobManager();
-            Console.WriteLine("Welcome to the job application tracker");
-            Helper.ChooseAlternative(jobManager);
+            Runner.ChooseAlternative();
         }
     }
 }

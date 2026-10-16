@@ -1,6 +1,4 @@
 ﻿using static JobApplicationTracker.Classes.JobApplication;
-using static System.Net.Mime.MediaTypeNames;
-
 namespace JobApplicationTracker.Classes
 {
     public class JobManager
@@ -51,7 +49,7 @@ namespace JobApplicationTracker.Classes
         public void UpdateStatus() // This method update status by first searching for company name, and then depending on how many applications has that name, it does different things.
         {
             string companyName = Console.ReadLine();
-            Console.WriteLine("What is the status? Applied, Interview, Offer or Rejected");
+            Console.WriteLine("What is the new status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
             var jobApplication = Applications.FindAll(a => a.CompanyName == companyName);
 
