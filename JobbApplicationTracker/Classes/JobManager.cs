@@ -6,14 +6,65 @@ namespace JobApplicationTracker.Classes
         //        Attributer :
         //Applications | List<JobApplication> - Samling av alla ansökningar
 
-        public List<JobApplication> Applications = new List<JobApplication>();
+        public List<JobApplication> Applications = new List<JobApplication>()
+        {
+            new JobApplication
+            {
+                CompanyName = "Spotify",
+                PositionTitle = "Junior Software Developer",
+                curentStatus = Status.Interview,
+                ApplicationDate = new DateTime(2026, 9, 2),
+                ResponseDate = new DateTime(2026, 9, 15),
+                SalaryExpectation = 42000
+            },
+            new JobApplication
+            {
+                CompanyName = "Ericsson",
+                PositionTitle = "Backend Developer",
+                curentStatus = Status.Applied,
+                ApplicationDate = new DateTime(2026, 10, 10),
+                ResponseDate = null,
+                SalaryExpectation = 45000
+            },
+            new JobApplication
+            {
+                CompanyName = "Klarna",
+                PositionTitle = "C# Developer",
+                curentStatus = Status.Rejected,
+                ApplicationDate = new DateTime(2026, 8, 20),
+                ResponseDate = new DateTime(2026, 9, 1),
+                SalaryExpectation = 48000
+            },
+            new JobApplication
+            {
+                CompanyName = "Volvo Cars",
+                PositionTitle = "Software Engineer",
+                curentStatus = Status.Offer,
+                ApplicationDate = new DateTime(2026, 8, 5),
+                ResponseDate = new DateTime(2026, 9, 25),
+                SalaryExpectation = 50000
+            },
+            new JobApplication
+            {
+                CompanyName = "King",
+                PositionTitle = "Game Developer Intern",
+                curentStatus = Status.Applied,
+                ApplicationDate = new DateTime(2026, 10, 14),
+                ResponseDate = null,
+                SalaryExpectation = 30000
+            },
+            new JobApplication
+            {
+                CompanyName = "Tele2",
+                PositionTitle = "Full Stack Developer",
+                curentStatus = Status.Interview,
+                ApplicationDate = new DateTime(2026, 9, 18),
+                ResponseDate = new DateTime(2026, 10, 3),
+                SalaryExpectation = 44000
+            }
+        };
 
-//        Metoder:
-//AddJob() – lägger till en ny ansökan
-//UpdateStatus() – ändrar status på en befintlig ansökan
-//ShowAll() – visar alla ansökningar
-//ShowByStatus() – filtrerar med LINQ efter status(VG del)
-//ShowStatistics() – visar statistik med LINQ(Count, Average, OrderBy, Where)
+           // Methods 
         public void Addjob() // This method creates a jobApplication object and then sets every variable it needs.
         {
             JobApplication jobAplication = new JobApplication();
@@ -28,7 +79,7 @@ namespace JobApplicationTracker.Classes
             jobAplication.SetStatus(Console.ReadLine());
             Console.WriteLine("When was the application date?");
 
-            jobAplication.AppllicationDate = DateTime.Parse(Console.ReadLine());
+            jobAplication.ApplicationDate = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Have they responed? Yes/No");
 
             var haveResponsed = Console.ReadLine();
@@ -51,7 +102,7 @@ namespace JobApplicationTracker.Classes
             string companyName = Console.ReadLine();
             Console.WriteLine("What is the new status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
-            var jobApplication = Applications.FindAll(a => a.CompanyName == companyName);
+            var jobApplication = Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower());
 
             if (Applications.Count() == 0) // if there is no application with inputted name write a message
             {
@@ -110,7 +161,7 @@ namespace JobApplicationTracker.Classes
         public void RemoveJob() // This remove jobs and works alot like update status, but instead of updating status it removes a job instead
         {
             string jobName = Console.ReadLine();
-            var jobApplication = Applications.FindAll(a => a.CompanyName == jobName);
+            var jobApplication = Applications.FindAll(a => a.CompanyName.ToLower() == jobName.ToLower());
 
             if (jobApplication.Count() == 0) // checks if the list has anything in it and writes a message
             {
@@ -151,7 +202,7 @@ namespace JobApplicationTracker.Classes
 
         public void SortByApplicationDate() // this method sorts the applications by their application date by using OrderBy
         {
-            var sortedApplications = Applications.OrderBy(application => application.AppllicationDate);
+            var sortedApplications = Applications.OrderBy(application => application.ApplicationDate);
             if (sortedApplications.Count() == 0) // checks if list contains anything and returns a message if it does not
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -277,7 +328,7 @@ namespace JobApplicationTracker.Classes
             try // runs the code below and if there is no error runs normally
             {
                 var averageResponseTime = Applications.Where(application => application.ResponseDate != null).Average(application => application.ResponseTime());
-                Console.WriteLine($"The average response time is {averageResponseTime}");
+                Console.WriteLine($"The average response time is {Math.Round(averageResponseTime,2)}");
 
             }
             catch (InvalidOperationException) // if it catches the InvalidOperationException it will print a message instead

@@ -16,38 +16,45 @@
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         jobManager.Addjob();
                         Helper.ReturntoMenu();
                         break;
 
                     case "2":
+                        Console.Clear();
                         Console.WriteLine("Enter the company name to remove the application");
                         jobManager.RemoveJob();
                         Helper.ReturntoMenu();
                         break;
 
                     case "3":
+                        Console.Clear();
                         Console.WriteLine("Enter the company name to update the status of the application:");
                         jobManager.UpdateStatus();
                         Helper.ReturntoMenu();
                         break;
 
                     case "4":
+                        Console.Clear();
                         jobManager.ShowAll();
                         Helper.ReturntoMenu();
                         break;
 
                     case "5":
+                        Console.Clear();
                         jobManager.SortByApplicationDate();
                         Helper.ReturntoMenu();
                         break;
 
                     case "6":
+                        Console.Clear();
                         jobManager.ShowByStatus();
                         Helper.ReturntoMenu();
 
                         break;
                     case "7":
+                        Console.Clear();
                         jobManager.ShowStatistics();
                         Helper.ReturntoMenu();
                         break;
@@ -57,6 +64,7 @@
                         break;
 
                     default:
+                        Console.Clear();
                         Console.WriteLine("Invalid choice, please try again.");
                         Helper.ReturntoMenu();
                         break;

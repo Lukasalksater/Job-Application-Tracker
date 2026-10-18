@@ -16,7 +16,7 @@
         public enum Status {Applied,  Interview,  Offer,  Rejected};
 
         public Status curentStatus { get; set; }
-        public DateTime AppllicationDate { get; set; }
+        public DateTime ApplicationDate { get; set; }
 
         public DateTime? ResponseDate { get; set; }
 
@@ -59,12 +59,12 @@
         }
         public int GetDaysSinceApplied() // Calculates days since applied and returns the value
         {
-            int daysSinceApplied = (DateTime.Now - AppllicationDate).Days;
+            int daysSinceApplied = (DateTime.Now - ApplicationDate).Days;
             return daysSinceApplied;
         }
         public int ResponseTime() // Calculates response time and returns the value
         {
-            int  responseTimeInDays = (ResponseDate - AppllicationDate)?.Days ?? 0;
+            int  responseTimeInDays = (ResponseDate - ApplicationDate)?.Days ?? 0;
             return responseTimeInDays;
         }
 
@@ -97,7 +97,7 @@
                 Console.ResetColor();
                 Console.WriteLine(",");
             }
-            Console.WriteLine($"the application was sent: {AppllicationDate},");
+            Console.WriteLine($"the application was sent: {ApplicationDate},");
             Console.WriteLine($"days since applied: {GetDaysSinceApplied()}");
             if (ResponseDate == null)
             {
