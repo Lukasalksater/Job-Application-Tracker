@@ -22,15 +22,11 @@
                         break;
 
                     case "2":
-                        Console.Clear();
-                        Console.WriteLine("Enter the company name to remove the application");
                         jobManager.RemoveJob();
                         Helper.ReturntoMenu();
                         break;
 
                     case "3":
-                        Console.Clear();
-                        Console.WriteLine("Enter the company name to update the status of the application:");
                         jobManager.UpdateStatus();
                         Helper.ReturntoMenu();
                         break;
