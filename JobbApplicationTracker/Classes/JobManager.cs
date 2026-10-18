@@ -99,12 +99,15 @@ namespace JobApplicationTracker.Classes
         }
         public void UpdateStatus() // This method update status by first searching for company name, and then depending on how many applications has that name, it does different things.
         {
+            Console.Clear();
+            Console.WriteLine("Enter the company name to update the status of the application:");
             string companyName = Console.ReadLine();
+            Console.WriteLine("When did they respond?");
+            DateTime? responseDate = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("What is the new status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
-            var jobApplication = Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower());
 
-            if (Applications.Count() == 0) // if there is no application with inputted name write a message
+            if (Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower()).Count() == 0) // if there is no application with inputted name write a message
             {
                 Console.ForegroundColor = ConsoleColor.Red;
 
@@ -112,18 +115,19 @@ namespace JobApplicationTracker.Classes
                 Console.ResetColor();
             }
 
-            else if (jobApplication.Count() > 1) // if there is more than 1 application with inputted name, theres a for loop asking user if this job they want to remove.
+            else if (Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower()).Count() > 1) // if there is more than 1 application with inputted name, theres a for loop asking user if this job they want to remove.
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("Type yes if this is the job you want to update status");
                 Console.ResetColor();
-                foreach (var application in jobApplication)
+                foreach (var application in Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower()))
                 {
                     application.GetSummary();
                     string answer = Console.ReadLine();
                     if (answer.ToLower() == "yes")
                     {
                         application.SetStatus(statusString);
+                        application.SetResponseDate(responseDate);
                         return;
                     }
                     else
@@ -136,7 +140,8 @@ namespace JobApplicationTracker.Classes
             }
             else // if there is only 1 job with that name it removes it
             {
-                jobApplication.First().SetStatus(statusString);
+                Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower()).First().SetStatus(statusString);
+                Applications.FindAll(a => a.CompanyName.ToLower() == companyName.ToLower()).First().SetResponseDate(responseDate);
             }
         }
         public void ShowAll() // This prints every jobAppliation GetSummary that has been added, or prints a message if there is none application
@@ -160,6 +165,8 @@ namespace JobApplicationTracker.Classes
         }
         public void RemoveJob() // This remove jobs and works alot like update status, but instead of updating status it removes a job instead
         {
+            Console.Clear();
+            Console.WriteLine("Enter the company name to remove the application");
             string jobName = Console.ReadLine();
             var jobApplication = Applications.FindAll(a => a.CompanyName.ToLower() == jobName.ToLower());
 

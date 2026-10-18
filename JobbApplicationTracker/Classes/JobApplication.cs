@@ -68,6 +68,21 @@
             return responseTimeInDays;
         }
 
+        public void SetResponseDate(DateTime? responseDate) // Sets the response date, if the response date is before the application date it sets it to null and prints a message
+        {
+            if (responseDate < ApplicationDate)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Response date cannot be before application date, setting response date to null");
+                Console.ResetColor();
+                ResponseDate = null;
+            }
+            else
+            {
+                ResponseDate = responseDate;
+            }
+        }
+
         public void GetSummary() // this one prints all the attributes, and changes color of Status depedning on its value
         {
             Console.WriteLine($"This application was for {CompanyName}");
