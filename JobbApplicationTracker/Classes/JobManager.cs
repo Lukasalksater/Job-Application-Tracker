@@ -1,4 +1,5 @@
-﻿using static JobApplicationTracker.Classes.JobApplication;
+﻿using System.Text.Json;
+using static JobApplicationTracker.Classes.JobApplication;
 namespace JobApplicationTracker.Classes
 {
     public class JobManager
@@ -6,63 +7,9 @@ namespace JobApplicationTracker.Classes
         //        Attributer :
         //Applications | List<JobApplication> - Samling av alla ansökningar
 
-        public List<JobApplication> Applications = new List<JobApplication>()
-        {
-            new JobApplication
-            {
-                CompanyName = "Spotify",
-                PositionTitle = "Junior Software Developer",
-                curentStatus = Status.Interview,
-                ApplicationDate = new DateTime(2026, 9, 2),
-                ResponseDate = new DateTime(2026, 9, 15),
-                SalaryExpectation = 42000
-            },
-            new JobApplication
-            {
-                CompanyName = "Ericsson",
-                PositionTitle = "Backend Developer",
-                curentStatus = Status.Applied,
-                ApplicationDate = new DateTime(2026, 10, 10),
-                ResponseDate = null,
-                SalaryExpectation = 45000
-            },
-            new JobApplication
-            {
-                CompanyName = "Klarna",
-                PositionTitle = "C# Developer",
-                curentStatus = Status.Rejected,
-                ApplicationDate = new DateTime(2026, 8, 20),
-                ResponseDate = new DateTime(2026, 9, 1),
-                SalaryExpectation = 48000
-            },
-            new JobApplication
-            {
-                CompanyName = "Volvo Cars",
-                PositionTitle = "Software Engineer",
-                curentStatus = Status.Offer,
-                ApplicationDate = new DateTime(2026, 8, 5),
-                ResponseDate = new DateTime(2026, 9, 25),
-                SalaryExpectation = 50000
-            },
-            new JobApplication
-            {
-                CompanyName = "King",
-                PositionTitle = "Game Developer Intern",
-                curentStatus = Status.Applied,
-                ApplicationDate = new DateTime(2026, 10, 14),
-                ResponseDate = null,
-                SalaryExpectation = 30000
-            },
-            new JobApplication
-            {
-                CompanyName = "Tele2",
-                PositionTitle = "Full Stack Developer",
-                curentStatus = Status.Interview,
-                ApplicationDate = new DateTime(2026, 9, 18),
-                ResponseDate = new DateTime(2026, 10, 3),
-                SalaryExpectation = 44000
-            }
-        };
+        public List<JobApplication> Applications = new List<JobApplication>();
+        
+          
 
            // Methods 
         public void Addjob() // This method creates a jobApplication object and then sets every variable it needs.
@@ -225,6 +172,7 @@ namespace JobApplicationTracker.Classes
                 }
             }
         }
+
         public void ShowByStatus() // shows all applications by the users inputted status
         {
             Console.WriteLine("What status do you want to show?");
@@ -344,6 +292,41 @@ namespace JobApplicationTracker.Classes
 
                 Console.WriteLine("You have not recieved any responses");
                 Console.ResetColor();
+            }
+        }
+
+
+        public void SaveToJson()
+        {
+            try
+            {
+                var path = Path.Combine(Helper.GetProjectDirectory(), "ApplicationList.json");
+                var jsonData = JsonSerializer.Serialize(Applications, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(path, jsonData);
+            }
+
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"Error file not found {ex.Message}");
+            }
+
+        }
+
+        public void ReadJson()
+        {
+            try
+            {
+                var path = Path.Combine(Helper.GetProjectDirectory(), "ApplicationList.json");
+                string json = File.ReadAllText(path);
+
+                var data = JsonSerializer.Deserialize<List<JobApplication>>(json);
+                data.ForEach(application => Applications.Add(application));
+
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"Error file not found {ex.Message}");
+
             }
         }
     }
