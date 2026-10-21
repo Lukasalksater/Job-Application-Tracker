@@ -6,6 +6,7 @@
         {
             JobManager jobManager = new JobManager();
             Console.WriteLine("Welcome to the job application tracker");
+            jobManager.ReadJson();
 
             bool isRunning = true;
             while (isRunning)
@@ -56,6 +57,7 @@
                         break;
 
                     case "8":
+                        jobManager.SaveToJson();
                         isRunning = false;
                         break;
 

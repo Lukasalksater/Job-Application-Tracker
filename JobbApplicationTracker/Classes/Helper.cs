@@ -23,5 +23,15 @@
             Console.ReadLine();
             Console.Clear();
         }
+
+        public static string GetProjectDirectory()
+        {
+            var dir = new DirectoryInfo(AppContext.BaseDirectory);
+            while (dir != null && dir.GetFiles("*.csproj").Length == 0)
+                dir = dir.Parent;
+
+            return dir?.FullName
+                ?? throw new DirectoryNotFoundException("Couldn't locate the project folder (.csproj).");
+        }
     }
 }
