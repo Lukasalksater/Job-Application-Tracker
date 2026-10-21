@@ -9,8 +9,6 @@ namespace JobApplicationTracker.Classes
 
         public List<JobApplication> Applications = new List<JobApplication>();
         
-          
-
            // Methods 
         public void Addjob() // This method creates a jobApplication object and then sets every variable it needs.
         {
@@ -26,8 +24,20 @@ namespace JobApplicationTracker.Classes
             jobAplication.SetStatus(Console.ReadLine());
             Console.WriteLine("When was the application date?");
 
-            jobAplication.ApplicationDate = DateTime.Parse(Console.ReadLine());
+            try
+            {
+                jobAplication.ApplicationDate = DateTime.Parse(Console.ReadLine());
+            }
+
+            catch (FormatException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"ERROR: {ex}");
+                Console.ResetColor();
+                return;
+            }
             Console.WriteLine("Have they responed? Yes/No");
+
 
             var haveResponsed = Console.ReadLine();
             // Here is an if statement to print different stuff if there was no response date
@@ -41,7 +51,18 @@ namespace JobApplicationTracker.Classes
                 Console.WriteLine("No response");
             }
             Console.WriteLine("What is the salaxy expectation?");
-            jobAplication.SalaryExpectation =  int.Parse(Console.ReadLine());
+            try
+            {
+                jobAplication.SalaryExpectation = int.Parse(Console.ReadLine());
+            }
+
+            catch (FormatException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"ERROR: {ex}");
+                Console.ResetColor();
+                return;
+            }
             Applications.Add(jobAplication);
         }
         public void UpdateStatus() // This method update status by first searching for company name, and then depending on how many applications has that name, it does different things.
@@ -50,7 +71,20 @@ namespace JobApplicationTracker.Classes
             Console.WriteLine("Enter the company name to update the status of the application:");
             string companyName = Console.ReadLine();
             Console.WriteLine("When did they respond?");
-            DateTime? responseDate = DateTime.Parse(Console.ReadLine());
+            DateTime? responseDate;
+            try
+            {
+                responseDate = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Have they responed? Yes/No");
+            }
+
+            catch (FormatException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"ERROR: {ex}");
+                Console.ResetColor();
+                return;
+            }
             Console.WriteLine("What is the new status? Applied, Interview, Offer or Rejected");
             string statusString = Console.ReadLine();
 
@@ -272,7 +306,6 @@ namespace JobApplicationTracker.Classes
             int amountOfOrderStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Offer).Count();
             int amountOfRejectedStatusApplications = Applications.Where(applications => applications.curentStatus == Status.Rejected).Count();
 
-
             // prints the results
             Console.WriteLine($"There are {amountOfApplications} applications");
             Console.WriteLine($"There are {amountOfAppliedStatusApplications} applications with applied status");
@@ -294,8 +327,6 @@ namespace JobApplicationTracker.Classes
                 Console.ResetColor();
             }
         }
-
-
         public void SaveToJson()
         {
             try
@@ -309,9 +340,7 @@ namespace JobApplicationTracker.Classes
             {
                 Console.WriteLine($"Error file not found {ex.Message}");
             }
-
         }
-
         public void ReadJson()
         {
             try
